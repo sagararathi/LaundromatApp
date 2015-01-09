@@ -1,7 +1,9 @@
+require 'soda/client'
 client = SODA::Client.new( { :domain => "data.cityofnewyork.us", :app_token => "R3U5um9w7ZSYcmKF6uwZjt2O5"})
-response = client.get("2zzj-3hqt",{"$limit" => 1})
-
-LicenseNumber.find_or_create(license_number: response[0].license_number)
+response = client.get("2zzj-3hqt")
+response.each do |record|
+LicenseNumber.find_or_create_by(license_number: response[0].license_number)
+end
 
 
 
